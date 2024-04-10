@@ -14,6 +14,15 @@
     </header>
     <div>
         <h1 class="sub-header">Drivers</h1>
+        <label for="sort">SortBy</label>
+        <select id="sort">
+            <option value="Z-A"> sort from Z-A </option>
+            <option value="A-Z"> sort from A-Z </option>
+            <option value="wins">sort by wins</option>
+            <option value="points"> sort by points </option>
+            <option value="championships"> sort by championships</option>
+        </select>
+        <button onclick="sortDrivers()"> submit </button>
         <div class="Drivers" id="drivers"></div>
     </div>
     <!-- <div id="card-container">

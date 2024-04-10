@@ -54,6 +54,7 @@ const CAN_FLAG_URL = "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_o
 const Drivers = [
     {
         name: "Max Verstappen",
+        lastInitial: "v",
         team: "Red Bull",
         dob: "30/09/1997",
         country: "Netherlands",
@@ -68,6 +69,7 @@ const Drivers = [
     },
     {
         name: "Sergio Perez",
+        lastInitial: "p",
         team: "Red Bull",
         dob: "26/01/1990",
         country: "Mexico",
@@ -82,6 +84,7 @@ const Drivers = [
     },
     {
         name: "Lewis Hamilton",
+        lastInitial: "h",
         team: "Mercedes",
         dob: "07/01/1985",
         country: "United Kingdom",
@@ -97,6 +100,7 @@ const Drivers = [
     },
     {
         name: "George Russell",
+        lastInitial: "r",
         team: "Mercedes",
         dob: "15/02/1998",
         country: "United Kingdom",
@@ -112,6 +116,7 @@ const Drivers = [
     },
     {
         name: "Charles Leclerc",
+        lastInitial: "l",
         team: "Ferrari",
         dob: "16/10/1997",
         country: "Monaco",
@@ -126,6 +131,7 @@ const Drivers = [
     },
     {
         name: "Carlos Sainz",
+        lastInitial: "s",
         team: "Ferrari",
         dob: "01/09/1994",
         country: "Spain",
@@ -141,6 +147,7 @@ const Drivers = [
     
     {
         name: "Lando Norris",
+        lastInitial: "n",
         team: "Mclaren",
         dob: "13/11/1999",
         country: "United Kingdom",
@@ -155,6 +162,7 @@ const Drivers = [
     },
     {
         name: "Oscar Piastri",
+        lastInitial: "p",
         team: "Mclaren",
         dob: "06/04/2001",
         country: "Australia",
@@ -170,6 +178,7 @@ const Drivers = [
     },
     {
         name: "Fernando Alonso",
+        lastInitial: "a",
         team: "Aston Martin",
         dob: "29/07/1981",
         country: "Spain",
@@ -184,6 +193,7 @@ const Drivers = [
     },
     {
         name: "Lance Stroll",
+        lastInitial: "s",
         team: "Aston Martin",
         dob: "29/10/1998",
         country: "Canada",
@@ -198,6 +208,7 @@ const Drivers = [
     },
     {
         name: "Yuki Tsunoda",
+        lastInitial: "t",
         team: "RB",
         dob: "11/05/2000",
         country: "Japan",
@@ -212,6 +223,7 @@ const Drivers = [
     },
     {
         name: "Daniel Ricciardo",
+        lastInitial: "r",
         team: "RB",
         dob: "01/07/1989",
         country: "Australia",
@@ -226,6 +238,7 @@ const Drivers = [
     },
     {
         name: "Nico Hulkenberg",
+        lastInitial: "h",
         team: "Haas",
         dob: "19/08/1987",
         country: "Germany",
@@ -240,6 +253,7 @@ const Drivers = [
     },
     {
         name: "Kevin Magnussen",
+        lastInitial: "m",
         team: "Haas",
         dob: "05/01/1992",
         country: "Dennmark",
@@ -254,6 +268,7 @@ const Drivers = [
     },
     {
         name: "Alexander Albon",
+        lastInitial: "a",
         team: "Williams",
         dob: "23/03/1996",
         country: "Thailand",
@@ -268,6 +283,7 @@ const Drivers = [
     },
     {
         name: "Logan Sargent",
+        lastInitial: "s",
         team: "Williams",
         dob: "31/12/2000",
         country: "United States of America",
@@ -282,6 +298,7 @@ const Drivers = [
     },
     {
         name: "Zhou Guanyu",
+        lastInitial: "g",
         team: "Kick Sauber",
         dob: "30/05/1999",
         country: "China",
@@ -296,6 +313,7 @@ const Drivers = [
     },
     {
         name: "Valterri Bottas",
+        lastInitial: "b",
         team: "Kick Sauber",
         dob: "28/08/1989",
         country: "Finland",
@@ -310,6 +328,7 @@ const Drivers = [
     },
     {
         name: "Esteban Ocon",
+        lastInitial: "o",
         team: "Alpine",
         dob: "17/09/1996",
         country: "France",
@@ -324,6 +343,7 @@ const Drivers = [
     },
     {
         name: "Pierre Gasley",
+        lastInitial: "g",
         team: "Alpine",
         dob: "07/02/1996",
         country: "France",
@@ -416,7 +436,38 @@ Drivers.forEach(function (driver){
 })
 
 function sortDrivers() {
-    
+    const sort = document.querySelector("#sort");
+    const value = sort.value;
+    let sortArr = Drivers.slice(); // Clone the Drivers array to avoid modifying the original array
+
+    if (value == "Z-A") {
+        sortArr.sort(function(a, b) {
+            return b.lastInitial.localeCompare(a.lastInitial);
+        });
+    } else if (value == "A-Z") {
+        sortArr.sort(function(a, b) {
+            return a.lastInitial.localeCompare(b.lastInitial);
+        });
+    } else if (value == "wins") {
+        sortArr.sort(function(a, b) {
+            return Number(b.wins) - Number(a.wins);
+        });
+    } else if (value == "points") {
+        sortArr.sort(function(a, b) {
+            return Number(b.points) - Number(a.points);
+        });
+    } else if (value == "championships") {
+        sortArr.sort(function(a, b) {
+            return Number(b.championships) - Number(a.championships);
+        });
+    }
+
+    const drivers = document.querySelector("#drivers"); // Assuming this is your container for drivers
+    drivers.innerHTML = null; // Clear existing content
+
+    sortArr.forEach(function(driver) {
+        editDriverContent(driver); // Assuming this correctly updates the HTML content for each driver
+    });
 }
 
 // This function adds cards the page to display the data in the array
